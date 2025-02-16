@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foxbuilt Store - Cubies Galore</title>
+    
+    <!-- Bootstrap CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     <!-- Favicon -->
+     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <!-- Navigation (No JavaScript) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Foxbuilt</a>
+            <label for="menu-toggle" class="navbar-toggler">☰</label>
+            <input type="checkbox" id="menu-toggle">
+            <div class="collapse navbar-collapse show" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    {% for link in nav_links %}
+                        <li class="nav-item"><a class="nav-link" href="{{ link.href }}">{{ link.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Masthead -->
+    <header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/dental_intel.jpg') }}');">
+        <div class="container">
+            <div class="masthead-subheading">Your Space, Your Way</div>
+            <a class="btn btn-primary btn-xl" href="#services">Tell Me More</a>
+        </div>
+    </header>
+
+    <!-- Services -->
+    <section class="page-section" id="services">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Services</h2>
+                <h3 class="section-subheading text-muted">Build them cubes</h3>
+            </div>
+            <div class="row text-center">
+                {% for service in services %}
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="{{ service.icon }} fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="my-3">{{ service.title }}</h4>
+                    <p class="text-muted">{{ service.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="page-section bg-light" id="portfolio">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Our Roots</h2>
+                <h3 class="section-subheading text-muted">25 years and counting</h3>
+            </div>
+            <div class="row">
+                {% for item in portfolio_items %}
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <a class="portfolio-link">
+                            <img class="img-fluid" src="{{ url_for('static', filename='assets/img/portfolio/' + item.image) }}" alt="{{ item.title }}">
+                        </a>
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">{{ item.title }}</div>
+                            <div class="portfolio-caption-subheading text-muted">{{ item.category }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="page-section" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Our Story</h2>
+                <h3 class="section-subheading text-muted">How Foxbuilt Office Furniture came to be.</h3>
+            </div>
+            <ul class="timeline">
+                {% for event in story %}
+                <li class="{% if loop.index % 2 == 0 %}timeline-inverted{% endif %}">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{ url_for('static', filename='assets/img/about/' + event.image) }}" alt="{{ event.title }}" /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>{{ event.date }}</h4>
+                            <h4 class="subheading">{{ event.title }}</h4>
+                        </div>
+                        <div class="timeline-body"><p class="text-muted">{{ event.description }}</p></div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="timeline-inverted">
+                    <div class="timeline-image">
+                        <h4>
+                            Be Part
+                            <br />
+                            Of Our
+                            <br />
+                            Story
+                        </h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="page-section bg-light" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Meet the Team</h2>
+            </div>
+            <div class="row">
+                {% for member in team_members %}
+                <div class="col-lg-4">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="{{ url_for('static', filename='assets/img/team/' + member.image) }}" alt="{{ member.name }}">
+                        <h4>{{ member.name }}</h4>
+                        <p class="text-muted">{{ member.role }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 Foxbuilt Office Furniture</p>
+        </div>
+    </footer>
+
+</body>
+</html>
